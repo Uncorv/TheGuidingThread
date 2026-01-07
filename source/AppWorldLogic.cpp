@@ -2,6 +2,7 @@
 #include "UnigineString.h"
 #include "UnigineWorld.h"
 #include <UnigineMaterials.h>
+#include <UnigineGui.h>
 #include <iostream>
 
 // World logic, it takes effect only when the world is loaded.
@@ -19,6 +20,13 @@ AppWorldLogic::~AppWorldLogic()
 int AppWorldLogic::init()
 {
 	Sound::loadSettings("sound_settings.sound");
+
+	GuiPtr gui = Gui::getCurrent();
+
+	// set custom font
+	if (!gui->setFontPath("fonts/TheGuidingThread.ttf")) {
+		Log::error("Not installed font TheGuidingThread.ttf\n");
+	}
 
 	// init variables
 	player = World::getNodeByName("player");
@@ -89,7 +97,7 @@ int AppWorldLogic::init()
 
 	tile_counter = new TileCounter();
 	level_display = new LevelNumberStartDisplay();
-	GuiPtr gui = Gui::getCurrent();
+
 	gui->addChild(tile_counter->getWidget(), Gui::ALIGN_LEFT);
 
 	// temporary disbaled splashscreen
