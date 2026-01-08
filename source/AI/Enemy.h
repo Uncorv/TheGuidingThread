@@ -20,6 +20,7 @@ public:
 	COMPONENT_DEFINE(Enemy, ComponentBase)
 	COMPONENT_INIT(init)
 	COMPONENT_UPDATE(update)
+	COMPONENT_UPDATE_PHYSICS(updatePhysics)
 
 	PROP_PARAM(Node, player_node)
 
@@ -31,6 +32,7 @@ public:
 
 	void init();
 	void update(TopDownController *player);
+	void updatePhysics(TopDownController *player);
 
 	void attack(NodePtr player_node);
 

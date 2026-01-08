@@ -9,8 +9,6 @@ using namespace Math;
 
 REGISTER_COMPONENT(Enemy);
 
-
-
 void Enemy::init()
 {
 	freeze_state = World::getNodeByName("freeze_state");
@@ -26,6 +24,11 @@ void Enemy::init()
 }
 
 void Enemy::update(TopDownController *player)
+{
+
+}
+
+void Enemy::updatePhysics(TopDownController *player)
 {
 	if (!freeze_state->isEnabled())
 	{
