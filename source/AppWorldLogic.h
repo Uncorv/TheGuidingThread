@@ -40,6 +40,9 @@ private:
 	void playSoundAttack();
 	void stopSoundAttack();
 	void soundEnemy(float distance, Unigine::NodePtr enemy_node);
+	void updateFireFondatEffects(float rate, float time);
+	float time_fire_fontant_end;
+	float timer;
 
 	std::vector<Unigine::NodePtr> m_walls;
 	std::vector<Unigine::NodePtr> m_paths;
@@ -59,12 +62,14 @@ private:
 	Unigine::MaterialPtr mesh_path_disable;
 	std::vector<Unigine::SoundSourcePtr> sound_player_visits;
 	Unigine::SoundSourcePtr sound_attack;
+	Unigine::ObjectParticlesPtr particles_sphere_1;
 	int sound_visit_index;
 
 	TileCounter *tile_counter = nullptr;
 	LevelNumberStartDisplay *level_display = nullptr;
 	HealthDisplay *health_display;
 	TopDownController *player_controller;
+
 };
 
 #endif // __APP_WORLD_LOGIC_H__

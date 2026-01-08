@@ -28,9 +28,6 @@ void TopDownController::init()
 void TopDownController::update()
 {
     timer += Game::getIFps();
-    if (timer > disable_particles_after) {
-        particles_sphere_1->setSpawnRate(0.0f);
-    }
 
     input_direction = Vec2(0.0f);
     if (!freeze_state->isEnabled())
@@ -90,9 +87,6 @@ void TopDownController::applyDamage(int damage)
     current_health -= damage;
     if (current_health < 0.0f)
         current_health = 0.0f;
-
-    particles_sphere_1->setSpawnRate(120.0f);
-    disable_particles_after = timer + 1.0f;
 }
 
 int TopDownController::getCurrentHealth() const

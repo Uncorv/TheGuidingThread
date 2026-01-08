@@ -35,6 +35,7 @@ int AppWorldLogic::init()
 	mesh_wall = Materials::findMaterialByPath("mesh_wall.mat");
 	mesh_path_enable = Materials::findMaterialByPath("mesh_path_enable.mat");
 	mesh_path_disable = Materials::findMaterialByPath("mesh_path_disable.mat");
+	particles_sphere_1 = Unigine::checked_ptr_cast<Unigine::ObjectParticles>(World::getNodeByName("sphera_1_particles"));
 
 	// node for state freeze
 	{
@@ -107,7 +108,8 @@ int AppWorldLogic::init()
 	// splashScreen->setEnabled(false);
 
 	// this->regenerateMapForCurrentLevel();
-
+	time_fire_fontant_end = 0.0f;
+	timer = 0.0f;
 	return 1;
 }
 
@@ -117,6 +119,11 @@ int AppWorldLogic::init()
 
 int AppWorldLogic::update()
 {
+	timer += Game::getIFps();
+    if (timer > time_fire_fontant_end) {
+        particles_sphere_1->setSpawnRate(0.0f);
+    }
+
 	if (m_freeze_state == false && freeze_state->isEnabled()) {
 		m_freeze_state = true;
 		if (skip_regenerate) {
@@ -163,9 +170,24 @@ int AppWorldLogic::update()
 			{
 				enemy_component->attack(player);
 				//attack_play = true;
+				updateFireFondatEffects(120.0f, 0.7f);
 			}
 		}
 	}
+
+	bool close_to_wall = false;
+	for (auto & wall : m_walls) {
+		Vec3 wall_pos = wall->getWorldPosition();
+		float distance = (playerPos - wall_pos).length();
+		if (distance < 0.8f)
+		{
+			close_to_wall = true;
+		}
+	}
+	if (close_to_wall) {
+		updateFireFondatEffects(20.0f, 0.5f);
+	}
+
 	/*if (attack_play) {
 		this->playSoundAttack();
 	} else {
@@ -212,6 +234,7 @@ int AppWorldLogic::postUpdate()
 			int visited = game_state.getVisitedCount();
 			if (visited > 1) {
 				playSoundVisit();
+				updateFireFondatEffects(200.0f, 0.7f);
 			}
 			int total = game_state.getAllCount();
 			if (tile_counter)
@@ -430,5 +453,12 @@ void AppWorldLogic::soundEnemy(float distance, Unigine::NodePtr enemy_node) {
 	sound_enemy->setGain(val * gain_max);
 	if (!sound_enemy_node->isEnabled()) {
 		sound_enemy_node->setEnabled(true);
+	}
+}
+
+void AppWorldLogic::updateFireFondatEffects(float rate, float time) {
+	if (timer + time >= time_fire_fontant_end) {
+		particles_sphere_1->setSpawnRate(rate);
+		time_fire_fontant_end = timer + time;
 	}
 }
