@@ -2,8 +2,8 @@
 <asset version="2.19.0.3">
 	<guid>bf7789bf123c7c320962f2aab39688e03ca9419c</guid>
 	<type>property</type>
-	<hash>fc67a144</hash>
+	<hash>35cf855c</hash>
 	<runtimes>
-		<runtime id="bf7789bf123c7c320962f2aab39688e03ca9419c" name="SplashScreen" link="0" type="4"/>
+		<runtime id="1cf89bd549dcc6283f133b765ac378380d9f48cf" name="IntroSplashScreenComponent" link="0" type="4"/>
 	</runtimes>
 </asset>

@@ -2,10 +2,10 @@
 #include <UnigineComponentSystem.h>
 #include <UnigineWidgets.h>
 
-class SplashScreen : public Unigine::ComponentBase
+class IntroSplashScreenComponent : public Unigine::ComponentBase
 {
 public:
-	COMPONENT_DEFINE(SplashScreen, ComponentBase);
+	COMPONENT_DEFINE(IntroSplashScreenComponent, ComponentBase);
 	COMPONENT_INIT(init);
 	COMPONENT_UPDATE(update);
 

@@ -10,7 +10,7 @@
 		<user/>
 	</data>
 	<sound>
-		<enabled>1</enabled>
+		<enabled>0</enabled>
 		<sound_manager_load_samples>0</sound_manager_load_samples>
 		<sound_manager_sample_static_memory>64</sound_manager_sample_static_memory>
 		<sound_manager_sample_stream_memory>16</sound_manager_sample_stream_memory>
@@ -826,9 +826,9 @@
 			</lens_flare_billboards>
 			<transform>-0.42162436 0.446623 -0.78914493 0.0 -0.7667712 -0.64016098 0.047366183 0.0 -0.48402852 0.62506896 0.61236966 0.0 0 0 0 1.0</transform>
 		</node>
-		<node type="NodeDummy" id="139587724" name="SplashScreen">
+		<node type="NodeDummy" id="139587724" name="IntroSplashScreenComponent">
 			<properties>
-				<property parent="bf7789bf123c7c320962f2aab39688e03ca9419c" guid="64e0a9f54fe10cfc66329f7051a987d714211569"/>
+				<property parent="1cf89bd549dcc6283f133b765ac378380d9f48cf" guid="7fe8b12128fe802e2350d41359ebdce9ecd83bab"/>
 			</properties>
 			<transform>1 0 0 0.0 0 1 0 0.0 0 0 1 0.0 -0.64403421 -2.6270533 5.738224 1.0</transform>
 		</node>

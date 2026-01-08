@@ -1,4 +1,4 @@
-#include "SplashScreen.h"
+#include "IntroSplashScreenComponent.h"
 #include <UnigineGame.h>
 #include <UnigineGui.h>
 #include <UnigineMathLib.h>
@@ -7,9 +7,9 @@
 using namespace Unigine;
 using namespace Unigine::Math;
 
-REGISTER_COMPONENT(SplashScreen);
+REGISTER_COMPONENT(IntroSplashScreenComponent);
 
-void SplashScreen::init()
+void IntroSplashScreenComponent::init()
 {
 	freeze_state = World::getNodeByName("freeze_state");
 	end_of_splash_screen = false;
@@ -77,7 +77,7 @@ void SplashScreen::init()
 	// line_pairs.append("I am the Guiding Thread.\nAnd this strand will lead me back.");
 }
 
-void SplashScreen::update()
+void IntroSplashScreenComponent::update()
 {
 	if (end_of_splash_screen) {
 		return;
@@ -172,7 +172,7 @@ void SplashScreen::update()
 	}
 }
 
-void SplashScreen::showNextPair()
+void IntroSplashScreenComponent::showNextPair()
 {
 	text_label->setText(line_pairs[current_pair].get());
 	text_label->arrange();

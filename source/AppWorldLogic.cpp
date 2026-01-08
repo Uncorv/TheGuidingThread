@@ -101,7 +101,7 @@ int AppWorldLogic::init()
 	gui->addChild(tile_counter->getWidget(), Gui::ALIGN_LEFT);
 
 	// temporary disbaled splashscreen
-	NodePtr splashScreen = World::getNodeByName("SplashScreen");
+	NodePtr splashScreen = World::getNodeByName("IntroSplashScreenComponent");
 	// splashScreen->setEnabled(false);
 
 	// this->regenerateMapForCurrentLevel();

@@ -52,8 +52,7 @@ add_executable(${target}
 		${CMAKE_CURRENT_LIST_DIR}/controller/TopDownController.cpp
 		${CMAKE_CURRENT_LIST_DIR}/AI/Enemy.h
 		${CMAKE_CURRENT_LIST_DIR}/AI/Enemy.cpp
-		${CMAKE_CURRENT_LIST_DIR}/UI/SplashScreen.h
-		${CMAKE_CURRENT_LIST_DIR}/UI/SplashScreen.cpp
+		${CMAKE_CURRENT_LIST_DIR}/components/IntroSplashScreenComponent.cpp
 		${CMAKE_CURRENT_LIST_DIR}/UI/TileCounter.h
 		${CMAKE_CURRENT_LIST_DIR}/UI/TileCounter.cpp
 		${CMAKE_CURRENT_LIST_DIR}/UI/LevelNumberStartDisplay.h
@@ -74,6 +73,7 @@ target_include_directories(${target}
 	${CMAKE_CURRENT_LIST_DIR}/Roads2DGenerator/
 	${CMAKE_CURRENT_LIST_DIR}/game/
 	${CMAKE_CURRENT_LIST_DIR}/UI/
+	${CMAKE_CURRENT_LIST_DIR}/components/
 	)
 
 target_link_libraries(${target}
