@@ -3,6 +3,7 @@
 #include "UnigineWorld.h"
 #include <UnigineMaterials.h>
 #include <UnigineGui.h>
+#include <UnigineVisualizer.h>
 #include <iostream>
 
 // World logic, it takes effect only when the world is loaded.
@@ -19,6 +20,7 @@ AppWorldLogic::~AppWorldLogic()
 
 int AppWorldLogic::init()
 {
+	// Visualizer::setEnabled(true);
 	Sound::loadSettings("sound_settings.sound");
 
 	GuiPtr gui = Gui::getCurrent();

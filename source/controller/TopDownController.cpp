@@ -3,6 +3,7 @@
 #include "UnigineConsole.h"
 #include "UnigineGame.h"
 #include "UnigineInput.h"
+#include "UnigineVisualizer.h"
 
 using namespace Unigine;
 using namespace Math;
@@ -52,6 +53,9 @@ void TopDownController::update()
         0.0f
         // r.z + rotation_speed * input_direction.x * input_direction.y
     ));
+
+
+    // Visualizer::renderBoundBox(node_sphere_1->getWorldBoundBox(), Mat4_identity, vec4_blue);
 }
 
 void TopDownController::updatePhysics()
