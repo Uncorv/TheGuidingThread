@@ -21,6 +21,7 @@ void TopDownController::init()
     body->setLinearDamping(17.0f);
     body->setAngularDamping(17.0f);
     current_health = max_health;
+    body->setMaxLinearVelocity(max_speed);
 }
 
 void TopDownController::update()
@@ -35,16 +36,15 @@ void TopDownController::update()
     {
         return;
     }
-    input_direction.y = static_cast<float>(
-        Input::isKeyPressed(Input::KEY_W) || Input::isKeyPressed(Input::KEY_UP) ? 1 :
-        Input::isKeyPressed(Input::KEY_S) || Input::isKeyPressed(Input::KEY_DOWN) ? -1 : 0);
-    input_direction.x = static_cast<float>(
-        Input::isKeyPressed(Input::KEY_D) || Input::isKeyPressed(Input::KEY_RIGHT) ? 1 :
-        Input::isKeyPressed(Input::KEY_A) || Input::isKeyPressed(Input::KEY_LEFT) ? -1 : 0);
+    input_direction.y =
+        Input::isKeyPressed(Input::KEY_W) || Input::isKeyPressed(Input::KEY_UP) ? 1.0f :
+        Input::isKeyPressed(Input::KEY_S) || Input::isKeyPressed(Input::KEY_DOWN) ? -1.0f : 0.0f;
+    input_direction.x =
+        Input::isKeyPressed(Input::KEY_D) || Input::isKeyPressed(Input::KEY_RIGHT) ? 1.0f :
+        Input::isKeyPressed(Input::KEY_A) || Input::isKeyPressed(Input::KEY_LEFT) ? -1.0f : 0.0f;
 
-    body->setMaxLinearVelocity(max_speed);
+    jump = Input::isKeyPressed(Input::KEY_SPACE) ? 1.0f : 0.0f;
 
-    float rotation_speed = 10.0f;
     Math::quat r = node_sphere_1->getWorldRotation();
     node_sphere_1->setWorldRotation(r * quat(
         r.x + rotation_speed * input_direction.x,
@@ -56,13 +56,19 @@ void TopDownController::update()
 
 void TopDownController::updatePhysics()
 {
+    if (jump > 0.0f) {
+        jump = 0.0f;
+        force_z = 1.0f;
+    }
 
-    if (length(input_direction) > 0.0f)
-    {
-        Vec3 force_dir = Vec3(input_direction.x, input_direction.y, 0.0f);
-        force_dir.normalize();
+    force_z = 0.0f;
 
-        body->addForce(force_dir * move_force);
+    Vec3 force_dir = Vec3(input_direction.x * 1.f, input_direction.y * 1.f, force_z);
+    force_dir.normalize();
+    body->addForce(force_dir * move_force);
+
+    if (force_z > 0.0f) {
+        force_z = -1.0f;
     }
 }
 
