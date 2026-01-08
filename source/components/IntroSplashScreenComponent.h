@@ -15,9 +15,9 @@ public:
 private:
 	enum class State
 	{
-		TitleFadeIn,
-		TitleDisplay,
-		TitleFadeOut,
+		LogoFadeIn,
+		LogoDisplay,
+		LogoFadeOut,
 		TextFadeIn,
 		TextDisplay,
 		TextFadeOut,
@@ -26,7 +26,7 @@ private:
 
 	void showNextPair();
 
-	State state = State::TitleFadeIn;
+	State state = State::LogoFadeIn;
 	bool end_of_splash_screen;
 	float timer = 0.0f;
 	int current_pair = 0;

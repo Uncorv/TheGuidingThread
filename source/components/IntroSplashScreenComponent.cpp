@@ -83,6 +83,11 @@ void IntroSplashScreenComponent::update()
 		return;
 	}
 
+	if (Input::isKeyPressed(Input::KEY_SPACE)) {
+		Log::warning("TODO skip intro\n");
+	}
+
+
 	float ifps = Game::getIFps();
 	timer += ifps;
 
@@ -90,26 +95,26 @@ void IntroSplashScreenComponent::update()
 
 	switch (state)
 	{
-	case State::TitleFadeIn:
+	case State::LogoFadeIn:
 		alpha = Math::clamp(timer / fade_duration, 0.0f, 1.0f);
 		logo->setFontColor(vec4(1, 1, 1, alpha));
 		if (timer >= fade_duration)
 		{
-			state = State::TitleDisplay;
+			state = State::LogoDisplay;
 			timer = 0.0f;
 		}
 		break;
 
-	case State::TitleDisplay:
+	case State::LogoDisplay:
 		logo->setFontColor(vec4(1, 1, 1, 1));
 		if (timer >= display_duration)
 		{
-			state = State::TitleFadeOut;
+			state = State::LogoFadeOut;
 			timer = 0.0f;
 		}
 		break;
 
-	case State::TitleFadeOut:
+	case State::LogoFadeOut:
 		alpha = 1.0f - Math::clamp(timer / fade_duration, 0.0f, 1.0f);
 		logo->setFontColor(vec4(1, 1, 1, alpha));
 		if (timer >= fade_duration)
