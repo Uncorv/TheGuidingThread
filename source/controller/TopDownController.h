@@ -26,6 +26,7 @@ private:
     Unigine::BodyRigidPtr body;
     Unigine::NodePtr node;
     Unigine::NodePtr node_sphere_1;
+    Unigine::ObjectParticlesPtr particles_sphere_1;
     Unigine::Math::Vec2 input_direction;
     Unigine::NodePtr freeze_state;
     Unigine::SoundSourcePtr sound_attack;
@@ -33,4 +34,7 @@ private:
 
     int current_health;
     const int max_health = 3;
+
+    float timer = 0.0f;
+    float disable_particles_after = 0.0f;
 };

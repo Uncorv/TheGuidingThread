@@ -11,9 +11,12 @@ REGISTER_COMPONENT(TopDownController);
 
 void TopDownController::init()
 {
+    timer = 0.0f;
     freeze_state = World::getNodeByName("freeze_state");
     node = World::getNodeByName("player");
     node_sphere_1 = World::getNodeByName("sphere_1");
+    particles_sphere_1 = Unigine::checked_ptr_cast<Unigine::ObjectParticles>(World::getNodeByName("sphera_1_particles"));
+
     body = node->getObjectBodyRigid();
     body->setLinearDamping(17.0f);
     body->setAngularDamping(17.0f);
@@ -22,6 +25,11 @@ void TopDownController::init()
 
 void TopDownController::update()
 {
+    timer += Game::getIFps();
+    if (timer > disable_particles_after) {
+        particles_sphere_1->setSpawnRate(0.0f);
+    }
+
     input_direction = Vec2(0.0f);
     if (!freeze_state->isEnabled())
     {
@@ -65,12 +73,16 @@ void TopDownController::applyDamage(int damage)
         sound_attack = checked_ptr_cast<Unigine::SoundSource>(node);
         if (!sound_attack->isPlaying())
         {
+            // sphera_1_particles
             sound_attack->play();
         }
     }
     current_health -= damage;
     if (current_health < 0.0f)
         current_health = 0.0f;
+
+    particles_sphere_1->setSpawnRate(120.0f);
+    disable_particles_after = timer + 1.0f;
 }
 
 int TopDownController::getCurrentHealth() const
