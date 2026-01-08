@@ -2,7 +2,6 @@
 
 #include "UnigineComponentSystem.h"
 
-
 class TopDownController : public Unigine::ComponentBase
 {
 public:
@@ -26,6 +25,7 @@ public:
 private:
     Unigine::BodyRigidPtr body;
     Unigine::NodePtr node;
+    Unigine::NodePtr node_sphere_1;
     Unigine::Math::Vec2 input_direction;
     Unigine::NodePtr freeze_state;
     Unigine::SoundSourcePtr sound_attack;

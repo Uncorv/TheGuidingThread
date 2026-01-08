@@ -13,6 +13,7 @@ void TopDownController::init()
 {
     freeze_state = World::getNodeByName("freeze_state");
     node = World::getNodeByName("player");
+    node_sphere_1 = World::getNodeByName("sphere_1");
     body = node->getObjectBodyRigid();
     body->setLinearDamping(17.0f);
     body->setAngularDamping(17.0f);
@@ -34,6 +35,15 @@ void TopDownController::update()
         Input::isKeyPressed(Input::KEY_A) || Input::isKeyPressed(Input::KEY_LEFT) ? -1 : 0);
 
     body->setMaxLinearVelocity(max_speed);
+
+    float rotation_speed = 10.0f;
+    Math::quat r = node_sphere_1->getWorldRotation();
+    node_sphere_1->setWorldRotation(r * quat(
+        r.x + rotation_speed * input_direction.x,
+        r.y + rotation_speed * input_direction.y,
+        0.0f
+        // r.z + rotation_speed * input_direction.x * input_direction.y
+    ));
 }
 
 void TopDownController::updatePhysics()
