@@ -56,6 +56,7 @@ private:
 	Unigine::NodePtr player;
 	Unigine::NodePtr freeze_state;
 	bool m_freeze_state;
+	Unigine::NodePtr pause_state;
 	bool skip_regenerate;
 	Unigine::MaterialPtr mesh_wall;
 	Unigine::MaterialPtr mesh_path_enable;

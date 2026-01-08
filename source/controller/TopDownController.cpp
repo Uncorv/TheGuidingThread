@@ -14,6 +14,7 @@ void TopDownController::init()
 {
     timer = 0.0f;
     freeze_state = World::getNodeByName("freeze_state");
+    pause_state = World::getNodeByName("pause_state");
     node = World::getNodeByName("player");
     node_sphere_1 = World::getNodeByName("sphere_1");
     particles_sphere_1 = Unigine::checked_ptr_cast<Unigine::ObjectParticles>(World::getNodeByName("sphera_1_particles"));
@@ -27,6 +28,11 @@ void TopDownController::init()
 
 void TopDownController::update()
 {
+    if (pause_state->isEnabled())
+	{
+		return;
+	}
+
     timer += Game::getIFps();
 
     input_direction = Vec2(0.0f);

@@ -2184,6 +2184,12 @@
 			<playing>0</playing>
 			<transform>0.99999994 0 0 0.0 0 0.99999994 0 0.0 0 0 0.99999994 0.0 -1.316866 2.9178233 0.69999969 1.0</transform>
 		</node>
+		<node type="NodeDummy" id="923096778" name="MenuComponent">
+			<properties>
+				<property parent="34d5633bc321157ad683fb39f2cbb79d50afa0dd" guid="4d9772829ba8eca350ca53358683c32aadf5f0ae"/>
+			</properties>
+			<transform>0.99999994 0 0 0.0 0 0.99999994 0 0.0 0 0 0.99999994 0.0 0.95646191 0.350429 2.6095481 1.0</transform>
+		</node>
 	</editor>
 	<console>
 		<bake_lighting_bounces>5</bake_lighting_bounces>

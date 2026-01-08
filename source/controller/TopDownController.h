@@ -31,6 +31,7 @@ private:
     float jump = 0.0f;
     float force_z = 0.0f;
     Unigine::NodePtr freeze_state;
+    Unigine::NodePtr pause_state;
     Unigine::SoundSourcePtr sound_attack;
 
 

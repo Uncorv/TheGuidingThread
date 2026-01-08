@@ -41,11 +41,19 @@ int AppWorldLogic::init()
 	{
 		ObjectMeshDynamicPtr object_mesh_freeze = ObjectMeshDynamic::create("core/meshes/box.mesh");
 		freeze_state = object_mesh_freeze;
-		std::string name = "freeze_state";
-		freeze_state->setName(name.c_str());
+		freeze_state->setName("freeze_state");
 		freeze_state->setWorldPosition(Vec3(-100.0f, -100.0f, -100.0f));
 		m_freeze_state = false;
 		freeze_state->setEnabled(false);
+	}
+
+	// node for state pause
+	{
+		ObjectMeshDynamicPtr object_mesh_freeze = ObjectMeshDynamic::create("core/meshes/box.mesh");
+		pause_state = object_mesh_freeze;
+		pause_state->setName("pause_state");
+		pause_state->setWorldPosition(Vec3(-100.0f, -100.0f, -100.0f));
+		pause_state->setEnabled(false);
 	}
 
 	sound_visit_index = 0;
@@ -119,6 +127,10 @@ int AppWorldLogic::init()
 
 int AppWorldLogic::update()
 {
+	if (pause_state->isEnabled()) {
+		return 1;
+	}
+
 	timer += Game::getIFps();
     if (timer > time_fire_fontant_end) {
         particles_sphere_1->setSpawnRate(0.0f);
@@ -203,7 +215,7 @@ int AppWorldLogic::update()
 				health_display->setHealth(player_controller->getCurrentHealth());
 			if (player_controller->getCurrentHealth() <= 0.0f)
 			{
-				if (flag == 0){
+				if (flag == 0) {
 					// this->regenerateMapForCurrentLevel();
 					tile_counter->showDeathMessage();
 					player_controller->setCurrentHealth(3);

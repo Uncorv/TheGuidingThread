@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<asset version="2.19.0.3">
+	<guid>32feacc967883956c9efd428eb795d42abe27462</guid>
+	<type>property</type>
+	<hash>f33878ae</hash>
+	<runtimes>
+		<runtime id="34d5633bc321157ad683fb39f2cbb79d50afa0dd" name="MenuComponent" link="0" type="4"/>
+	</runtimes>
+</asset>

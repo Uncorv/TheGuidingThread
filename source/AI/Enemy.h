@@ -60,4 +60,5 @@ private:
 
 	Unigine::BodyRigidPtr body;
 	Unigine::NodePtr freeze_state;
+	Unigine::NodePtr pause_state;
 };

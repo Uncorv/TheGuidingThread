@@ -12,6 +12,7 @@ REGISTER_COMPONENT(Enemy);
 void Enemy::init()
 {
 	freeze_state = World::getNodeByName("freeze_state");
+	pause_state = World::getNodeByName("pause_state");
 	body = node->getObjectBodyRigid();
 	if (body)
 	{
@@ -34,6 +35,12 @@ void Enemy::updatePhysics(TopDownController *player)
 	{
         return;
     }
+
+	if (pause_state->isEnabled())
+	{
+		return;
+	}
+
 	switch (current_state)
 	{
 	case EnemyState::PATROL:
