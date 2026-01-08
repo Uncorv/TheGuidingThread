@@ -11,6 +11,9 @@ REGISTER_COMPONENT(IntroSplashScreenComponent);
 
 void IntroSplashScreenComponent::init()
 {
+	keyWaiterSpace.setWaitSec(0.7f);
+	keyWaiterSpace.setKey(Input::KEY_SPACE);
+
 	freeze_state = World::getNodeByName("freeze_state");
 	end_of_splash_screen = false;
 	auto gui = Gui::getCurrent();
@@ -83,96 +86,45 @@ void IntroSplashScreenComponent::update()
 		return;
 	}
 
-	if (Input::isKeyPressed(Input::KEY_SPACE)) {
-		Log::warning("TODO skip intro\n");
+	float ifps = Game::getIFps();
+
+	// skip intro
+	if (keyWaiterSpace.isPressed())
+	{
+		doSkipCurrentStep();
+		return;
 	}
 
-
-	float ifps = Game::getIFps();
 	timer += ifps;
-
-	float alpha = 0.0f;
 
 	switch (state)
 	{
 	case State::LogoFadeIn:
-		alpha = Math::clamp(timer / fade_duration, 0.0f, 1.0f);
-		logo->setFontColor(vec4(1, 1, 1, alpha));
-		if (timer >= fade_duration)
-		{
-			state = State::LogoDisplay;
-			timer = 0.0f;
-		}
+		doLogoFadeIn();
 		break;
 
 	case State::LogoDisplay:
-		logo->setFontColor(vec4(1, 1, 1, 1));
-		if (timer >= display_duration)
-		{
-			state = State::LogoFadeOut;
-			timer = 0.0f;
-		}
+		doLogoDisplay();
 		break;
 
 	case State::LogoFadeOut:
-		alpha = 1.0f - Math::clamp(timer / fade_duration, 0.0f, 1.0f);
-		logo->setFontColor(vec4(1, 1, 1, alpha));
-		if (timer >= fade_duration)
-		{
-			logo->setParent(nullptr); 
-			state = State::TextFadeIn;
-			timer = 0.0f;
-			current_pair = 0;
-			showNextPair();
-		}
+		doLogoFadeOut();
 		break;
 
 	case State::TextFadeIn:
-		alpha = Math::clamp(timer / fade_duration, 0.0f, 1.0f);
-		text_label->setFontColor(vec4(1, 1, 1, alpha));
-		if (timer >= fade_duration)
-		{
-			state = State::TextDisplay;
-			timer = 0.0f;
-		}
+		doTextFadeIn();
 		break;
 
 	case State::TextDisplay:
-		text_label->setFontColor(vec4(1, 1, 1, 1));
-		if (timer >= display_duration)
-		{
-			state = State::TextFadeOut;
-			timer = 0.0f;
-		}
+		doTextDisplay();
 		break;
 
 	case State::TextFadeOut:
-		alpha = 1.0f - Math::clamp(timer / fade_duration, 0.0f, 1.0f);
-		text_label->setFontColor(vec4(1, 1, 1, alpha));
-		if (timer >= fade_duration)
-		{
-			current_pair++;
-			if (current_pair >= line_pairs.size())
-			{
-				state = State::Done;
-				timer = 0.0f;
-				//logo->setParent(nullptr);
-				background->setParent(nullptr);
-				text_label->setParent(nullptr);
-			}
-			else
-			{
-				showNextPair();
-				state = State::TextFadeIn;
-				timer = 0.0f;
-			}
-		}
+		doTextFadeOut();
 		break;
 
 	case State::Done:
-		std::cout << "State::Done" << std::endl;
-		end_of_splash_screen = true;
-		freeze_state->setEnabled(true);
+		doDone();
 		return;
 	}
 }
@@ -186,4 +138,153 @@ void IntroSplashScreenComponent::showNextPair()
 		(gui->getWidth() - text_label->getWidth()) / 2,
 		gui->getHeight() / 2 - 100
 	);
+}
+
+void IntroSplashScreenComponent::doLogoFadeIn()
+{
+	float alpha = Math::clamp(timer / fade_duration, 0.0f, 1.0f);
+	logo->setFontColor(vec4(1, 1, 1, alpha));
+	if (timer >= fade_duration)
+	{
+		state = State::LogoDisplay;
+		timer = 0.0f;
+	}
+}
+
+void IntroSplashScreenComponent::doLogoDisplay()
+{
+	logo->setFontColor(vec4(1, 1, 1, 1));
+	if (timer >= logo_display_duration)
+	{
+		state = State::LogoFadeOut;
+		timer = 0.0f;
+	}
+}
+
+void IntroSplashScreenComponent::doLogoFadeOut()
+{
+	float alpha = 1.0f - Math::clamp(timer / fade_duration, 0.0f, 1.0f);
+	logo->setFontColor(vec4(1, 1, 1, alpha));
+	if (timer >= fade_duration)
+	{
+		logo->setParent(nullptr);
+		state = State::TextFadeIn;
+		timer = 0.0f;
+		current_pair = 0;
+		showNextPair();
+	}
+}
+
+void IntroSplashScreenComponent::doTextFadeIn()
+{
+	float alpha = Math::clamp(timer / fade_duration, 0.0f, 1.0f);
+	text_label->setFontColor(vec4(1, 1, 1, alpha));
+	if (timer >= fade_duration)
+	{
+		state = State::TextDisplay;
+		timer = 0.0f;
+	}
+}
+
+void IntroSplashScreenComponent::doTextDisplay()
+{
+	text_label->setFontColor(vec4(1, 1, 1, 1));
+	if (timer >= display_duration)
+	{
+		state = State::TextFadeOut;
+		timer = 0.0f;
+	}
+}
+
+void IntroSplashScreenComponent::doTextFadeOut()
+{
+	float alpha = 1.0f - Math::clamp(timer / fade_duration, 0.0f, 1.0f);
+	text_label->setFontColor(vec4(1, 1, 1, alpha));
+	if (timer >= fade_duration)
+	{
+		current_pair++;
+		if (current_pair >= line_pairs.size())
+		{
+			state = State::Done;
+			timer = 0.0f;
+			//logo->setParent(nullptr);
+			background->setParent(nullptr);
+			text_label->setParent(nullptr);
+		}
+		else
+		{
+			showNextPair();
+			state = State::TextFadeIn;
+			timer = 0.0f;
+		}
+	}
+}
+
+void IntroSplashScreenComponent::doDone()
+{
+	// std::cout << "State::Done" << std::endl;
+	end_of_splash_screen = true;
+	freeze_state->setEnabled(true);
+}
+
+bool IntroSplashScreenComponent::isLogoFadeIn()
+{
+	return state == State::LogoFadeIn;
+}
+
+bool IntroSplashScreenComponent::isLogoDisplay()
+{
+	return state == State::LogoDisplay;
+}
+
+bool IntroSplashScreenComponent::isLogoFadeOut()
+{
+	return state == State::LogoFadeOut;
+}
+
+bool IntroSplashScreenComponent::isTextFadeIn()
+{
+	return state == State::TextFadeIn;
+}
+
+bool IntroSplashScreenComponent::isTextDisplay()
+{
+	return state == State::TextDisplay;
+}
+
+bool IntroSplashScreenComponent::isTextFadeOut()
+{
+	return state == State::TextFadeOut;
+}
+
+void IntroSplashScreenComponent::doSkipCurrentStep()
+{
+	if (isLogoFadeIn())
+	{
+		timer += fade_duration;
+		timer += logo_display_duration;
+		doLogoFadeOut();
+		return;
+	}
+
+	if (isLogoDisplay())
+	{
+		timer += logo_display_duration;
+		doLogoFadeOut();
+		return;
+	}
+
+	if (isLogoFadeOut())
+	{
+		timer += fade_duration;
+		doLogoFadeOut();
+		return;
+	}
+
+	if (isTextFadeIn() || isTextDisplay())
+	{
+		timer += fade_duration;
+		doTextFadeOut();
+		return;
+	}
 }

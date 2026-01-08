@@ -1,6 +1,8 @@
 #pragma once
+
 #include <UnigineComponentSystem.h>
 #include <UnigineWidgets.h>
+#include "waiter_key_press.h"
 
 class IntroSplashScreenComponent : public Unigine::ComponentBase
 {
@@ -26,6 +28,23 @@ private:
 
 	void showNextPair();
 
+	void doLogoFadeIn();
+	void doLogoDisplay();
+	void doLogoFadeOut();
+	void doTextFadeIn();
+	void doTextDisplay();
+	void doTextFadeOut();
+	void doDone();
+
+	bool isLogoFadeIn();
+	bool isLogoDisplay();
+	bool isLogoFadeOut();
+	bool isTextFadeIn();
+	bool isTextDisplay();
+	bool isTextFadeOut();
+
+	void doSkipCurrentStep();
+
 	State state = State::LogoFadeIn;
 	bool end_of_splash_screen;
 	float timer = 0.0f;
@@ -41,4 +60,6 @@ private:
 
 	const float fade_duration = 3.5f;
 	const float display_duration = 2.5f;
+	const float logo_display_duration = 2.5f;
+	WaiterKeyPress keyWaiterSpace;
 };

@@ -63,6 +63,7 @@ add_executable(${target}
 		${CMAKE_CURRENT_LIST_DIR}/game/GameState.cpp
 		${CMAKE_CURRENT_LIST_DIR}/game/GameLevel.h
 		${CMAKE_CURRENT_LIST_DIR}/game/GameLevel.cpp
+		${CMAKE_CURRENT_LIST_DIR}/helpers/waiter_key_press.cpp
 		${CMAKE_CURRENT_LIST_DIR}/Roads2DGenerator/Roads2DGenerator.h
 		${CMAKE_CURRENT_LIST_DIR}/Roads2DGenerator/Roads2DGenerator.cpp
 )
@@ -70,6 +71,7 @@ add_executable(${target}
 target_include_directories(${target}
 	PRIVATE
 	${UNIGINE_INCLUDE_DIR}
+	${CMAKE_CURRENT_LIST_DIR}/helpers/
 	${CMAKE_CURRENT_LIST_DIR}/Roads2DGenerator/
 	${CMAKE_CURRENT_LIST_DIR}/game/
 	${CMAKE_CURRENT_LIST_DIR}/UI/
@@ -79,7 +81,6 @@ target_include_directories(${target}
 target_link_libraries(${target}
 	PRIVATE
 	Unigine::Engine
-	
 	)
 
 target_compile_definitions(${target}
