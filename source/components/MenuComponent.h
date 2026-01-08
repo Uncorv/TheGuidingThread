@@ -14,6 +14,9 @@ public:
     void init();
     void update();
 
+    // PROP_PARAM(Float, move_force, 100.0f, "Movement speed")
+    // PROP_PARAM(Float, max_speed, 10.0f)
+
 private:
 
     void UpdateIfWindowsResized();

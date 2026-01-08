@@ -352,7 +352,11 @@ void AppWorldLogic::regenerateMapForCurrentLevel() {
 		player->setWorldPosition(Vec3(float(free_roads[0].first), float(free_roads[0].second), 0.55f));
 		NodePtr playerCamera = World::getNodeByName("PlayerDummy");
 		Vec3 pos = playerCamera->getWorldPosition();
+		// top view
 		playerCamera->setWorldPosition(Vec3(float(free_roads[0].first), float(free_roads[0].second) - 1.8f, pos.z));
+		// behind - TODO
+		// playerCamera->
+		// playerCamera->setWorldPosition(Vec3(float(free_roads[0].first), float(free_roads[0].second) - 1.8f, pos.z));
 
 		if (tile_counter)
 			tile_counter ->setLevel(current_level + 1, game_state.getAllCount());
