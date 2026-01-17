@@ -325,34 +325,32 @@ void AppWorldLogic::regenerateMapForCurrentLevel() {
 		int width = m_levels[current_level]->getWidth();
 		int height = m_levels[current_level]->getHeight();
 		int enemis = m_levels[current_level]->getEnemis();
+		float gen = m_levels[current_level]->getGen();
 
 		// std::cout << "width = " << width << ", height = " << height << std::endl;
 
-		Roads2DGenerator road2gen(width, height);
-		// road2gen.set
-		road2gen.generate(0.9);
-		road2gen.printMap();
-
-		std::vector<std::pair<int,int>> free_roads;
-		std::vector<std::vector<bool>> pixel_map = road2gen.exportToPixelMap();
+		grid_map.generate(width, height, gen);
+		const std::vector<GridMap::Cell> &free_cells = grid_map.getFreeCells();
 		for (int x = 0; x < width; x++)
 		{
 			for (int y = 0; y < height; y++)
 			{
-				if (!pixel_map[x][y])
+				if (!grid_map.isWalkable(x, y))
 				{
 					this->addWall(x,y);
 				} else {
 					this->addPath(x,y);
-					free_roads.push_back(std::pair<int,int>(x,y));
 				}
 			}
 		}
 
-		player->setWorldPosition(Vec3(float(free_roads[0].first), float(free_roads[0].second), 0.55f));
+		if (free_cells.empty())
+			return;
+
+		player->setWorldPosition(Vec3(float(free_cells[0].x), float(free_cells[0].y), 0.55f));
 		NodePtr playerCamera = World::getNodeByName("PlayerDummy");
 		Vec3 pos = playerCamera->getWorldPosition();
-		playerCamera->setWorldPosition(Vec3(float(free_roads[0].first), float(free_roads[0].second) - 1.8f, pos.z));
+		playerCamera->setWorldPosition(Vec3(float(free_cells[0].x), float(free_cells[0].y) - 1.8f, pos.z));
 
 		if (tile_counter)
 			tile_counter ->setLevel(current_level + 1, game_state.getAllCount());
@@ -364,9 +362,9 @@ void AppWorldLogic::regenerateMapForCurrentLevel() {
 			enemy->setEnabled(true);
 			m_enemies.push_back(enemy);
 
-			int idx = rand.getNextRandom() % free_roads.size();
+			int idx = rand.getNextRandom() % free_cells.size();
 
-			enemy->setWorldPosition(Vec3(float(free_roads[idx].first), float(free_roads[idx].second), 0.55f));
+			enemy->setWorldPosition(Vec3(float(free_cells[idx].x), float(free_cells[idx].y), 0.55f));
 		}
 
 	} else {
