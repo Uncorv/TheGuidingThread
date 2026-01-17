@@ -63,6 +63,8 @@ add_executable(${target}
 		${CMAKE_CURRENT_LIST_DIR}/game/GameState.cpp
 		${CMAKE_CURRENT_LIST_DIR}/game/GameLevel.h
 		${CMAKE_CURRENT_LIST_DIR}/game/GameLevel.cpp
+		${CMAKE_CURRENT_LIST_DIR}/game/GridMap.h
+		${CMAKE_CURRENT_LIST_DIR}/game/GridMap.cpp
 		${CMAKE_CURRENT_LIST_DIR}/helpers/waiter_key_press.cpp
 		${CMAKE_CURRENT_LIST_DIR}/Roads2DGenerator/Roads2DGenerator.h
 		${CMAKE_CURRENT_LIST_DIR}/Roads2DGenerator/Roads2DGenerator.cpp

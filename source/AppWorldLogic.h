@@ -4,11 +4,12 @@
 #include <UnigineLogic.h>
 #include <UnigineStreams.h>
 #include <vector>
-#include "Roads2DGenerator.h"
 #include "UI/TileCounter.h"
 #include "UI/LevelNumberStartDisplay.h"
 #include "GameState.h"
 #include "GameLevel.h"
+#include "GridMap.h"
+#include "Roads2DGenerator.h"
 #include "controller/TopDownController.h"
 #include "AI/Enemy.h"
 #include "UI/HealthDisplay.h"
@@ -50,6 +51,7 @@ private:
 	std::vector<GameLevel *> m_levels;
 
 	Roads2DGeneratorPseudoRandom rand;
+	GridMap grid_map;
 	GameState game_state;
 	int current_level;
 
