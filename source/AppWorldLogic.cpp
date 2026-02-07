@@ -248,7 +248,6 @@ int AppWorldLogic::postUpdate()
 				playSoundVisit();
 				updateFireFondatEffects(200.0f, 0.7f);
 			}
-			int total = game_state.getAllCount();
 			if (tile_counter)
 				tile_counter->updateCounter(visited);
 
