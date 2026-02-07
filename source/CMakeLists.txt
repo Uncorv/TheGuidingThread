@@ -49,6 +49,7 @@ add_executable(${target}
 		${CMAKE_CURRENT_LIST_DIR}/AppEditorLogic.h
 		${CMAKE_CURRENT_LIST_DIR}/AppSystemLogic.h
 		${CMAKE_CURRENT_LIST_DIR}/components/MenuComponent.cpp
+		${CMAKE_CURRENT_LIST_DIR}/components/ProgressComponent.cpp
 		${CMAKE_CURRENT_LIST_DIR}/controller/TopDownController.cpp
 		${CMAKE_CURRENT_LIST_DIR}/AI/Enemy.h
 		${CMAKE_CURRENT_LIST_DIR}/AI/Enemy.cpp
